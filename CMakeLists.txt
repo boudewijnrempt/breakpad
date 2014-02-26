@@ -29,6 +29,13 @@ if (WIN32)
 		src/client/windows/crash_generation/minidump_generator.cc
 		src/client/windows/handler/exception_handler.cc
 	   )
+	SET(HEADERS}
+		src/common/windows/guid_string.h
+		src/client/windows/crash_generation/crash_generation_client.h
+		src/client/windows/crash_generation/client_info.h
+		src/client/windows/crash_generation/minidump_generator.h
+		src/client/windows/handler/exception_handler.h
+	   )
    	#ADD_DEFINITIONS(/Zc:wchar_t-) 	
 	ADD_DEFINITIONS(/GL /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "_UNICODE" /D "UNICODE" /EHsc )
 	#INCLUDE_DIRECTORIES(c:/progra~1/micros~1.0/vc/atlmfc)
@@ -37,9 +44,7 @@ endif (WIN32)
 
 if (UNIX)
 	if (APPLE) 
-	 
-                INCLUDE_DIRECTORIES(/Developer/Headers/FlatCarbon)
-
+        INCLUDE_DIRECTORIES(/Developer/Headers/FlatCarbon)
 		FIND_LIBRARY(COCOA_LIBRARY COCOA)
 		MARK_AS_ADVANCED(COCOA_LIBRARY)
 		SET(EXTRA_LIBS crypto ${COCOA_LIBRARY})
@@ -81,3 +86,5 @@ IF(UNIX AND NOT APPLE)
 ENDIF(UNIX AND NOT APPLE)
 
 target_link_libraries(breakpad ${EXTRA_LIBS}) 
+install(TARGETS breakpad DESTINATION lib${LIB_SUFFIX})
+install(FILES ${HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR})
