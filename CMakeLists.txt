@@ -80,10 +80,9 @@ ENDIF(UNIX AND NOT APPLE)
 
 target_link_libraries(breakpad ${EXTRA_LIBS}) 
 install(TARGETS breakpad DESTINATION lib${LIB_SUFFIX})
-install(FILES 
-		src/common/windows/guid_string.h
-		src/client/windows/crash_generation/crash_generation_client.h
-		src/client/windows/crash_generation/client_info.h
-		src/client/windows/crash_generation/minidump_generator.h
-		src/client/windows/handler/exception_handler.h
-DESTINATION include)
+install(DIRECTORY
+    src/client
+    src/common
+    src/google_breakpad
+    src/processor
+DESTINATION include/breakpad)
