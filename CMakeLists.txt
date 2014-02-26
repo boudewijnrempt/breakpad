@@ -29,13 +29,6 @@ if (WIN32)
 		src/client/windows/crash_generation/minidump_generator.cc
 		src/client/windows/handler/exception_handler.cc
 	   )
-	SET(HEADERS}
-		src/common/windows/guid_string.h
-		src/client/windows/crash_generation/crash_generation_client.h
-		src/client/windows/crash_generation/client_info.h
-		src/client/windows/crash_generation/minidump_generator.h
-		src/client/windows/handler/exception_handler.h
-	   )
    	#ADD_DEFINITIONS(/Zc:wchar_t-) 	
 	ADD_DEFINITIONS(/GL /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "_UNICODE" /D "UNICODE" /EHsc )
 	#INCLUDE_DIRECTORIES(c:/progra~1/micros~1.0/vc/atlmfc)
@@ -87,4 +80,10 @@ ENDIF(UNIX AND NOT APPLE)
 
 target_link_libraries(breakpad ${EXTRA_LIBS}) 
 install(TARGETS breakpad DESTINATION lib${LIB_SUFFIX})
-install(FILES ${HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR})
+install(FILES 
+		src/common/windows/guid_string.h
+		src/client/windows/crash_generation/crash_generation_client.h
+		src/client/windows/crash_generation/client_info.h
+		src/client/windows/crash_generation/minidump_generator.h
+		src/client/windows/handler/exception_handler.h
+DESTINATION include)
